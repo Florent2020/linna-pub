@@ -249,10 +249,7 @@ export default function Layout({ children }) {
           </div>
         </FootGrid>
         <FootBottom>
-          <span>
-            © {new Date().getFullYear()} Linna Pub · Designkonsept. Demo-innhold
-            må godkjennes før publisering.
-          </span>
+          <span>© {new Date().getFullYear()} Linna Pub · Designkonsept.</span>
           <span>Bygget med omtanke i Notodden.</span>
         </FootBottom>
       </Footer>
