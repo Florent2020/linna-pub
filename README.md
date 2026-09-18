@@ -36,3 +36,6 @@ All six page hero titles, section headings, and the homepage closing CTA are lef
 
 ## Arkitektur (oppdatert)
 Hver side har sin egen JSX-fil og sine egne lokale styled-components: `Home.jsx`, `About.jsx`, `Menu.jsx`, `Activities.jsx`, `Gallery.jsx`, `Contact.jsx` og `NotFound.jsx`. `Inner.jsx` er fjernet. Felles layout-primitiver finnes i `src/components/UI.jsx`, uten global CSS.
+
+## Editorial section update
+The Home section “Mer enn bare en pub” now has a responsive two-column layout, left-aligned copy, three icon highlights, a CTA and a local illustrative pub photograph in public/english-scottish-pub.png. The photo is an AI-generated illustration, not a photograph of Linna Pub.
