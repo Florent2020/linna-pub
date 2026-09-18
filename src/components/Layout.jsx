@@ -250,7 +250,7 @@ export default function Layout({ children }) {
         </FootGrid>
         <FootBottom>
           <span>© {new Date().getFullYear()} Linna Pub ·</span>
-          <span>Bygget med omtanke i Notodden.</span>
+          <span>Designet og kodet av Florent Hajdari</span>
         </FootBottom>
       </Footer>
     </Shell>
