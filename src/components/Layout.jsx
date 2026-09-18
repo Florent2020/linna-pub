@@ -249,7 +249,7 @@ export default function Layout({ children }) {
           </div>
         </FootGrid>
         <FootBottom>
-          <span>© {new Date().getFullYear()} Linna Pub · Designkonsept.</span>
+          <span>© {new Date().getFullYear()} Linna Pub ·</span>
           <span>Bygget med omtanke i Notodden.</span>
         </FootBottom>
       </Footer>
