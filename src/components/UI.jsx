@@ -1,11 +1,124 @@
-import React from'react';import styled from'styled-components';import{Link}from'react-router-dom';import{motion}from'framer-motion';import{ArrowUpRight}from'lucide-react';import{palette}from'../data/site';
-export const Container=styled.div`width:100%;max-width:1200px;box-sizing:border-box;margin:0 auto;padding:0 25px;text-align:left`;
-export const Section=styled.section`padding:105px 0;background:${p=>p.$dark?palette.dark:p.$alternate?'#ebe3d8':palette.cream};color:${p=>p.$dark?palette.cream:palette.dark};@media(max-width:650px){padding:70px 0}`;
-export const Eyebrow=styled.p`color:${palette.gold};font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.22em;margin:0 0 18px`;
-export const Heading=styled.h2`font-family:'Playfair Display',serif;font-size:clamp(34px,4.3vw,59px);font-weight:500;line-height:1.17;letter-spacing:-.035em;margin:0 0 23px;text-align:left`;
-export const Body=styled.p`font-size:15px;line-height:1.95;color:${p=>p.$light?'#c9bfb2':'#655b50'};max-width:570px`;
-export const Button=styled(Link)`display:inline-flex;align-items:center;justify-content:center;gap:18px;background:${p=>p.$outline?'transparent':palette.gold};color:${p=>p.$outline?palette.cream:palette.dark};border:1px solid ${palette.gold};padding:16px 22px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;font-weight:700;transition:transform .25s,background .25s;&:hover{transform:translateY(-3px);background:${p=>p.$outline?palette.gold:'#d7b780'};color:${palette.dark}}`;
-const Banner=styled.div`min-height:440px;background:linear-gradient(90deg,#171411dd,#17141155),url('${p=>p.$image}') center/cover;display:flex;align-items:center;justify-content:flex-start;text-align:left;color:white;padding:115px 0 65px;& > ${Container}{width:100%;max-width:1200px;flex:0 0 100%;margin-left:auto;margin-right:auto;text-align:left;}h1{max-width:800px;text-align:left;font:500 clamp(45px,6vw,82px)/1.1 'Playfair Display',serif;margin:0 0 20px}p:last-child{max-width:600px;line-height:1.8;color:#e2d8cc}`;
-export function PageHero({eyebrow,title,description,image}){return <Banner $image={image}><Container><Eyebrow>{eyebrow}</Eyebrow><h1>{title}</h1><p>{description}</p></Container></Banner>}
-export const Reveal=({children,...props})=><motion.div initial={{opacity:0,y:24}} whileInView={{opacity:1,y:0}} viewport={{once:true,amount:.12}} transition={{duration:.65}} {...props}>{children}</motion.div>;
-export const CTAIcon=ArrowUpRight;
+import React from "react";
+import styled from "styled-components";
+import { Link } from "react-router-dom";
+import { motion } from "framer-motion";
+import { ArrowUpRight } from "lucide-react";
+import { palette } from "../data/site";
+export const Container = styled.div`
+  width: 100%;
+  max-width: 1200px;
+  box-sizing: border-box;
+  margin: 0 auto;
+  padding: 0 25px;
+  text-align: left;
+`;
+export const Section = styled.section`
+  padding: 105px 0;
+  background: ${(p) =>
+    p.$dark ? palette.dark : p.$alternate ? "#ebe3d8" : palette.cream};
+  color: ${(p) => (p.$dark ? palette.cream : palette.dark)};
+  @media (max-width: 650px) {
+    padding: 70px 0;
+  }
+`;
+export const Eyebrow = styled.p`
+  color: ${palette.gold};
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  margin: 0 0 18px;
+`;
+export const Heading = styled.h2`
+  font-family: "Playfair Display", serif;
+  font-size: clamp(34px, 4.3vw, 59px);
+  font-weight: 500;
+  line-height: 1.17;
+  letter-spacing: -0.035em;
+  margin: 0 0 23px;
+  text-align: left;
+`;
+export const Body = styled.p`
+  font-size: 15px;
+  line-height: 1.95;
+  color: ${(p) => (p.$light ? "#c9bfb2" : "#655b50")};
+  max-width: 570px;
+`;
+export const Button = styled(Link)`
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  background: ${(p) => (p.$outline ? "transparent" : palette.gold)};
+  color: ${(p) => (p.$outline ? palette.cream : palette.dark)};
+  border: 1px solid ${palette.gold};
+  padding: 16px 22px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition:
+    transform 0.25s,
+    background 0.25s;
+  &:hover {
+    transform: translateY(-3px);
+    background: ${(p) => (p.$outline ? palette.gold : "#d7b780")};
+    color: ${palette.dark};
+  }
+`;
+const Banner = styled.div`
+  min-height: 440px;
+  background:
+    linear-gradient(90deg, #171411dd, #17141155),
+    url("${(p) => p.$image}") center/cover;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: left;
+  color: white;
+  padding: 115px 0 65px;
+  & > ${Container} {
+    width: 100%;
+    max-width: 1200px;
+    flex: 0 0 100%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+  }
+  h1 {
+    max-width: 800px;
+    text-align: left;
+    font:
+      500 clamp(45px, 6vw, 82px)/1.1 "Playfair Display",
+      serif;
+    margin: 0 0 20px;
+  }
+  p:last-child {
+    max-width: 600px;
+    line-height: 1.8;
+    color: #e2d8cc;
+  }
+`;
+export function PageHero({ eyebrow, title, description, image }) {
+  return (
+    <Banner $image={image}>
+      <Container>
+        <Eyebrow>{eyebrow}</Eyebrow>
+        <h1>{title}</h1>
+        <p>{description}</p>
+      </Container>
+    </Banner>
+  );
+}
+export const Reveal = ({ children, ...props }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 24 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.12 }}
+    transition={{ duration: 0.65 }}
+    {...props}
+  >
+    {children}
+  </motion.div>
+);
+export const CTAIcon = ArrowUpRight;

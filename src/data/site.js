@@ -1,5 +1,49 @@
 // Verify contact details, opening hours, menus and events with the owner before publishing.
-export const palette={dark:'#171411',dark2:'#24201c',cream:'#f4eee5',gold:'#c6a36b',muted:'#a89c8e',wine:'#633a36'};
-export const photos={hero:'https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=2200&q=85',interior:'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85',bar:'https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1400&q=85',drink:'https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?auto=format&fit=crop&w=1200&q=85',food:'https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1200&q=85',social:'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85',lounge:'https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=85',table:'https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=85'};
-export const navigation=[['/','Hjem'],['/om-oss','Om oss'],['/mat-og-drikke','Mat & drikke'],['/aktiviteter','Aktiviteter'],['/galleri','Galleri'],['/kontakt','Kontakt']];
-export const activities=[{title:'Jazz & musikk',text:'Musikk og gode samtaler i en lun atmosfære.',icon:'music'},{title:'Spill & samvær',text:'Et sted for gode møter og hyggelige kvelder.',icon:'game'},{title:'Tradisjon & kultur',text:'Inspirert av britisk pubkultur og Notoddens historie.',icon:'history'}];
+export const palette = {
+  dark: "#171411",
+  dark2: "#24201c",
+  cream: "#f4eee5",
+  gold: "#c6a36b",
+  muted: "#a89c8e",
+  wine: "#633a36",
+};
+export const photos = {
+  hero: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=2200&q=85",
+  interior:
+    "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85",
+  bar: "https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?auto=format&fit=crop&w=1400&q=85",
+  drink:
+    "https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?auto=format&fit=crop&w=1200&q=85",
+  food: "https://images.unsplash.com/photo-1544145945-f90425340c7e?auto=format&fit=crop&w=1200&q=85",
+  social:
+    "https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=85",
+  lounge:
+    "https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1400&q=85",
+  table:
+    "https://images.unsplash.com/photo-1559339352-11d035aa65de?auto=format&fit=crop&w=1400&q=85",
+};
+export const navigation = [
+  ["/", "Hjem"],
+  ["/om-oss", "Om oss"],
+  ["/mat-og-drikke", "Mat & drikke"],
+  ["/aktiviteter", "Aktiviteter"],
+  ["/galleri", "Galleri"],
+  ["/kontakt", "Kontakt"],
+];
+export const activities = [
+  {
+    title: "Jazz & musikk",
+    text: "Musikk og gode samtaler i en lun atmosfære.",
+    icon: "music",
+  },
+  {
+    title: "Spill & samvær",
+    text: "Et sted for gode møter og hyggelige kvelder.",
+    icon: "game",
+  },
+  {
+    title: "Tradisjon & kultur",
+    text: "Inspirert av britisk pubkultur og Notoddens historie.",
+    icon: "history",
+  },
+];

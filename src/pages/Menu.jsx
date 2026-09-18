@@ -1,17 +1,285 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { MapPin, Clock, Mail, ArrowUpRight, Music, Users, Landmark, X, ChevronLeft, ChevronRight, Send, CheckCircle, Camera, BookOpen, GlassWater, Heart, CalendarDays } from 'lucide-react';
-import { Container, Section, Eyebrow, Heading, Body, Button, PageHero, Reveal } from '../components/UI';
-import { photos, activities, palette } from '../data/site';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import {
+  MapPin,
+  Clock,
+  Mail,
+  ArrowUpRight,
+  Music,
+  Users,
+  Landmark,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Send,
+  CheckCircle,
+  Camera,
+  BookOpen,
+  GlassWater,
+  Heart,
+  CalendarDays,
+} from "lucide-react";
+import {
+  Container,
+  Section,
+  Eyebrow,
+  Heading,
+  Body,
+  Button,
+  PageHero,
+  Reveal,
+} from "../components/UI";
+import { photos, activities, palette } from "../data/site";
 
-const Split=styled.div`display:grid;grid-template-columns:1fr 1fr;gap:8%;align-items:center;@media(max-width:750px){grid-template-columns:1fr;gap:32px}img{width:100%;height:500px;object-fit:cover;@media(max-width:750px){height:320px}}`;
-const Cards=styled.div`display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:40px 0;@media(max-width:800px){grid-template-columns:1fr}article{padding:35px;background:#fffaf3;border:1px solid #e2d7c9;transition:transform .3s;&:hover{transform:translateY(-4px)}}h3{font:500 27px 'Playfair Display',serif;margin:17px 0}p{font-size:14px;line-height:1.85;color:#675d52}`;
-const Notice=styled.div`border-left:3px solid ${palette.gold};padding:18px 23px;background:#fff9f0;font-size:13px;line-height:1.8;color:#665a4d;margin:30px 0`;
-const Paragraph=styled.p`font-size:15px;line-height:1.95;color:${p=>p.$light?'#d2c6b7':'#655b50'};max-width:680px`;
-const MenuGrid=styled.div`display:grid;grid-template-columns:1fr 1fr;gap:65px;@media(max-width:700px){grid-template-columns:1fr;gap:30px}`;
-const MenuGroup=styled.div`border-top:1px solid #bca992;padding-top:28px;margin-top:28px;h3{font:500 32px 'Playfair Display',serif;margin:0 0 20px}p{color:#6c6256;font-size:13px;line-height:1.8}ul{list-style:none;padding:0}li{padding:17px 0;border-bottom:1px solid #dfd3c5}strong{display:block;font-size:15px;letter-spacing:.02em}small{display:block;color:#716659;line-height:1.8;margin-top:5px}`;
+const Split = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8%;
+  align-items: center;
+  @media (max-width: 750px) {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+  img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    @media (max-width: 750px) {
+      height: 320px;
+    }
+  }
+`;
+const Cards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin: 40px 0;
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+  article {
+    padding: 35px;
+    background: #fffaf3;
+    border: 1px solid #e2d7c9;
+    transition: transform 0.3s;
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  h3 {
+    font:
+      500 27px "Playfair Display",
+      serif;
+    margin: 17px 0;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #675d52;
+  }
+`;
+const Notice = styled.div`
+  border-left: 3px solid ${palette.gold};
+  padding: 18px 23px;
+  background: #fff9f0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #665a4d;
+  margin: 30px 0;
+`;
+const Paragraph = styled.p`
+  font-size: 15px;
+  line-height: 1.95;
+  color: ${(p) => (p.$light ? "#d2c6b7" : "#655b50")};
+  max-width: 680px;
+`;
+const MenuGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+  @media (max-width: 700px) {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+`;
+const MenuGroup = styled.div`
+  border-top: 1px solid #bca992;
+  padding-top: 28px;
+  margin-top: 28px;
+  h3 {
+    font:
+      500 32px "Playfair Display",
+      serif;
+    margin: 0 0 20px;
+  }
+  p {
+    color: #6c6256;
+    font-size: 13px;
+    line-height: 1.8;
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    padding: 17px 0;
+    border-bottom: 1px solid #dfd3c5;
+  }
+  strong {
+    display: block;
+    font-size: 15px;
+    letter-spacing: 0.02em;
+  }
+  small {
+    display: block;
+    color: #716659;
+    line-height: 1.8;
+    margin-top: 5px;
+  }
+`;
 
-const conceptMenu=[{title:'Noe lite å dele',items:[['Sprø snacks','Enkle, salte småbiter som passer til en hyggelig kveld.'],['Delingsfat','Et utvalg små smaker som inviterer til å dele.'],['Varme småretter','Lune smaker for den som ønsker noe ekstra.']]},{title:'Fra kjøkkenet',items:[['Pubklassikere','Inspirasjon fra tradisjonelle, uformelle pubretter.'],['Noe lett','En enklere rett for en rolig pause.'],['Dagens idé','Et fleksibelt konsept for sesongens muligheter.']]},{title:'I glasset',items:[['Øl og alternativer','Et mulig utvalg av ulike stiler og alkoholfrie valg.'],['Vin og klassikere','En kategori for et eventuelt bekreftet drikkeutvalg.'],['Alkoholfritt','Forfriskende alternativer for enhver anledning.']]},{title:'Kaffe og noe godt',items:[['Kaffe og te','En varm avslutning på måltidet eller en liten pause.'],['Noe søtt','En idé for et lite søtt innslag, dersom tilgjengelig.'],['Sesongens favoritter','Plass for godkjente spesialiteter når menyen er klar.']]}];
-export function MenuPage(){return <><PageHero eyebrow="Mat & drikke" title="Smaken av Linna." description="Gode smaker, hyggelige møter og tid til å nyte øyeblikket." image={photos.food}/><Section><Container><Eyebrow>Rundt bordet</Eyebrow><Heading>Mat & drikke med plass til gode samtaler.</Heading><Paragraph>Et godt pubbesøk handler om mer enn det som står på bordet. Det handler om stemningen, selskapet og de små pausene som gjør kvelden til din egen. Her viser vi hvordan en fyldig og innbydende meny kan presenteres.</Paragraph><Notice>DEMO / KONSEPT: Kategoriene og rettene nedenfor er illustrative forslag, ikke Linna Pubs faktiske meny. Ingen priser eller tilgjengelighet er bekreftet. Bytt ut med godkjent meny før publisering.</Notice><MenuGrid>{conceptMenu.map(group=><MenuGroup key={group.title}><h3>{group.title}</h3><ul>{group.items.map(([name,desc])=><li key={name}><strong>{name}</strong><small>{desc}</small></li>)}</ul></MenuGroup>)}</MenuGrid></Container></Section><Section $alternate><Container><Split><Reveal><Eyebrow>Et naturlig samlingspunkt</Eyebrow><Heading>Smaker som setter rammen.</Heading><Paragraph>Fra en enkel pause til en kveld med venner: en gjennomtenkt meny kan gi gjestene flere grunner til å sette seg ned og bli en stund.</Paragraph><Paragraph>På den ferdige nettsiden kan denne delen brukes til sesongnyheter, anbefalinger fra kjøkkenet eller en nedlastbar meny. Alle slike opplysninger bør komme direkte fra puben.</Paragraph><Button to="/kontakt">Spør om menyen <ArrowUpRight size={16}/></Button></Reveal><img src={photos.table} alt="Illustrasjonsbilde av et serveringssted" loading="lazy"/></Split></Container></Section><Section><Container><Eyebrow>En anledning for alle</Eyebrow><Heading>Finn din favorittstund.</Heading><Cards>{[['Etter jobb','Et roligere øyeblikk etter en lang dag. Finn et bord, senk skuldrene og nyt en uformell atmosfære.',Clock],['Med vennegjengen','Del gode samtaler og utforsk menyen sammen. Det viktigste er tiden rundt bordet.',Users],['En liten pause','Noen ganger trenger du bare et varmt sted å sitte og noe godt å drikke.',GlassWater]].map(([t,d,Icon])=><article key={t}><Icon color={palette.wine}/><h3>{t}</h3><p>{d}</p></article>)}</Cards></Container></Section></>}
+const conceptMenu = [
+  {
+    title: "Noe lite å dele",
+    items: [
+      [
+        "Sprø snacks",
+        "Enkle, salte småbiter som passer til en hyggelig kveld.",
+      ],
+      ["Delingsfat", "Et utvalg små smaker som inviterer til å dele."],
+      ["Varme småretter", "Lune smaker for den som ønsker noe ekstra."],
+    ],
+  },
+  {
+    title: "Fra kjøkkenet",
+    items: [
+      ["Pubklassikere", "Inspirasjon fra tradisjonelle, uformelle pubretter."],
+      ["Noe lett", "En enklere rett for en rolig pause."],
+      ["Dagens idé", "Et fleksibelt konsept for sesongens muligheter."],
+    ],
+  },
+  {
+    title: "I glasset",
+    items: [
+      [
+        "Øl og alternativer",
+        "Et mulig utvalg av ulike stiler og alkoholfrie valg.",
+      ],
+      [
+        "Vin og klassikere",
+        "En kategori for et eventuelt bekreftet drikkeutvalg.",
+      ],
+      ["Alkoholfritt", "Forfriskende alternativer for enhver anledning."],
+    ],
+  },
+  {
+    title: "Kaffe og noe godt",
+    items: [
+      ["Kaffe og te", "En varm avslutning på måltidet eller en liten pause."],
+      ["Noe søtt", "En idé for et lite søtt innslag, dersom tilgjengelig."],
+      [
+        "Sesongens favoritter",
+        "Plass for godkjente spesialiteter når menyen er klar.",
+      ],
+    ],
+  },
+];
+export function MenuPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Mat & drikke"
+        title="Smaken av Linna."
+        description="Gode smaker, hyggelige møter og tid til å nyte øyeblikket."
+        image={photos.food}
+      />
+      <Section>
+        <Container>
+          <Eyebrow>Rundt bordet</Eyebrow>
+          <Heading>Mat & drikke med plass til gode samtaler.</Heading>
+          <Paragraph>
+            Et godt pubbesøk handler om mer enn det som står på bordet. Det
+            handler om stemningen, selskapet og de små pausene som gjør kvelden
+            til din egen. Her viser vi hvordan en fyldig og innbydende meny kan
+            presenteres.
+          </Paragraph>
 
-
+          <MenuGrid>
+            {conceptMenu.map((group) => (
+              <MenuGroup key={group.title}>
+                <h3>{group.title}</h3>
+                <ul>
+                  {group.items.map(([name, desc]) => (
+                    <li key={name}>
+                      <strong>{name}</strong>
+                      <small>{desc}</small>
+                    </li>
+                  ))}
+                </ul>
+              </MenuGroup>
+            ))}
+          </MenuGrid>
+        </Container>
+      </Section>
+      <Section $alternate>
+        <Container>
+          <Split>
+            <Reveal>
+              <Eyebrow>Et naturlig samlingspunkt</Eyebrow>
+              <Heading>Smaker som setter rammen.</Heading>
+              <Paragraph>
+                Fra en enkel pause til en kveld med venner: en gjennomtenkt meny
+                kan gi gjestene flere grunner til å sette seg ned og bli en
+                stund.
+              </Paragraph>
+              <Paragraph>
+                På den ferdige nettsiden kan denne delen brukes til
+                sesongnyheter, anbefalinger fra kjøkkenet eller en nedlastbar
+                meny. Alle slike opplysninger bør komme direkte fra puben.
+              </Paragraph>
+              <Button to="/kontakt">
+                Spør om menyen <ArrowUpRight size={16} />
+              </Button>
+            </Reveal>
+            <img
+              src={photos.table}
+              alt="Illustrasjonsbilde av et serveringssted"
+              loading="lazy"
+            />
+          </Split>
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          <Eyebrow>En anledning for alle</Eyebrow>
+          <Heading>Finn din favorittstund.</Heading>
+          <Cards>
+            {[
+              [
+                "Etter jobb",
+                "Et roligere øyeblikk etter en lang dag. Finn et bord, senk skuldrene og nyt en uformell atmosfære.",
+                Clock,
+              ],
+              [
+                "Med vennegjengen",
+                "Del gode samtaler og utforsk menyen sammen. Det viktigste er tiden rundt bordet.",
+                Users,
+              ],
+              [
+                "En liten pause",
+                "Noen ganger trenger du bare et varmt sted å sitte og noe godt å drikke.",
+                GlassWater,
+              ],
+            ].map(([t, d, Icon]) => (
+              <article key={t}>
+                <Icon color={palette.wine} />
+                <h3>{t}</h3>
+                <p>{d}</p>
+              </article>
+            ))}
+          </Cards>
+        </Container>
+      </Section>
+    </>
+  );
+}

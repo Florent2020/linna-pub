@@ -1,15 +1,376 @@
-import React, { useState, useEffect } from 'react';
-import styled from 'styled-components';
-import { MapPin, Clock, Mail, ArrowUpRight, Music, Users, Landmark, X, ChevronLeft, ChevronRight, Send, CheckCircle, Camera, BookOpen, GlassWater, Heart, CalendarDays } from 'lucide-react';
-import { Container, Section, Eyebrow, Heading, Body, Button, PageHero, Reveal } from '../components/UI';
-import { photos, activities, palette } from '../data/site';
+import React, { useState, useEffect } from "react";
+import styled from "styled-components";
+import {
+  MapPin,
+  Clock,
+  Mail,
+  ArrowUpRight,
+  Music,
+  Users,
+  Landmark,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  Send,
+  CheckCircle,
+  Camera,
+  BookOpen,
+  GlassWater,
+  Heart,
+  CalendarDays,
+} from "lucide-react";
+import {
+  Container,
+  Section,
+  Eyebrow,
+  Heading,
+  Body,
+  Button,
+  PageHero,
+  Reveal,
+} from "../components/UI";
+import { photos, activities, palette } from "../data/site";
 
-const Cards=styled.div`display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin:40px 0;@media(max-width:800px){grid-template-columns:1fr}article{padding:35px;background:#fffaf3;border:1px solid #e2d7c9;transition:transform .3s;&:hover{transform:translateY(-4px)}}h3{font:500 27px 'Playfair Display',serif;margin:17px 0}p{font-size:14px;line-height:1.85;color:#675d52}`;
-const Notice=styled.div`border-left:3px solid ${palette.gold};padding:18px 23px;background:#fff9f0;font-size:13px;line-height:1.8;color:#665a4d;margin:30px 0`;
-const Paragraph=styled.p`font-size:15px;line-height:1.95;color:${p=>p.$light?'#d2c6b7':'#655b50'};max-width:680px`;
-const ImageBand=styled.div`display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-top:45px;@media(max-width:650px){grid-template-columns:1fr 1fr}img{width:100%;height:290px;object-fit:cover;@media(max-width:650px){height:180px}}`;
-const ContactGrid=styled.div`display:grid;grid-template-columns:1fr 1fr;gap:65px;@media(max-width:750px){grid-template-columns:1fr;gap:25px}article{border-bottom:1px solid #cfc2b3;padding:22px 0}h3{font:500 24px 'Playfair Display',serif}p{color:#665a4d;line-height:1.8;font-size:14px}a{color:#795b36;text-decoration:underline}`;
-const Form=styled.form`background:#fffaf3;padding:clamp(24px,4vw,48px);border:1px solid #e1d5c5;display:grid;gap:19px;label{font-size:12px;letter-spacing:.09em;text-transform:uppercase;font-weight:700;display:grid;gap:9px}input,textarea,select{width:100%;background:white;border:1px solid #d5c8b8;padding:15px;font:inherit;color:#171411;border-radius:0;outline-offset:3px}textarea{resize:vertical;min-height:155px}button{display:flex;align-items:center;justify-content:center;gap:10px;background:${palette.gold};border:0;padding:17px;font-weight:700;letter-spacing:.1em;text-transform:uppercase}small{color:#675d52;line-height:1.7}`;
+const Cards = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 22px;
+  margin: 40px 0;
+  @media (max-width: 800px) {
+    grid-template-columns: 1fr;
+  }
+  article {
+    padding: 35px;
+    background: #fffaf3;
+    border: 1px solid #e2d7c9;
+    transition: transform 0.3s;
+    &:hover {
+      transform: translateY(-4px);
+    }
+  }
+  h3 {
+    font:
+      500 27px "Playfair Display",
+      serif;
+    margin: 17px 0;
+  }
+  p {
+    font-size: 14px;
+    line-height: 1.85;
+    color: #675d52;
+  }
+`;
+const Notice = styled.div`
+  border-left: 3px solid ${palette.gold};
+  padding: 18px 23px;
+  background: #fff9f0;
+  font-size: 13px;
+  line-height: 1.8;
+  color: #665a4d;
+  margin: 30px 0;
+`;
+const Paragraph = styled.p`
+  font-size: 15px;
+  line-height: 1.95;
+  color: ${(p) => (p.$light ? "#d2c6b7" : "#655b50")};
+  max-width: 680px;
+`;
+const ImageBand = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  margin-top: 45px;
+  @media (max-width: 650px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  img {
+    width: 100%;
+    height: 290px;
+    object-fit: cover;
+    @media (max-width: 650px) {
+      height: 180px;
+    }
+  }
+`;
+const ContactGrid = styled.div`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 65px;
+  @media (max-width: 750px) {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  article {
+    border-bottom: 1px solid #cfc2b3;
+    padding: 22px 0;
+  }
+  h3 {
+    font:
+      500 24px "Playfair Display",
+      serif;
+  }
+  p {
+    color: #665a4d;
+    line-height: 1.8;
+    font-size: 14px;
+  }
+  a {
+    color: #795b36;
+    text-decoration: underline;
+  }
+`;
+const Form = styled.form`
+  background: #fffaf3;
+  padding: clamp(24px, 4vw, 48px);
+  border: 1px solid #e1d5c5;
+  display: grid;
+  gap: 19px;
+  label {
+    font-size: 12px;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    font-weight: 700;
+    display: grid;
+    gap: 9px;
+  }
+  input,
+  textarea,
+  select {
+    width: 100%;
+    background: white;
+    border: 1px solid #d5c8b8;
+    padding: 15px;
+    font: inherit;
+    color: #171411;
+    border-radius: 0;
+    outline-offset: 3px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 155px;
+  }
+  button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: ${palette.gold};
+    border: 0;
+    padding: 17px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  small {
+    color: #675d52;
+    line-height: 1.7;
+  }
+`;
 
-export function Contact(){const[form,setForm]=useState({name:'',email:'',topic:'Generell henvendelse',message:''});const[status,setStatus]=useState('');const update=e=>setForm(v=>({...v,[e.target.name]:e.target.value}));const submit=e=>{e.preventDefault();setStatus('Demo: Meldingen er ikke sendt. Koble skjemaet til EmailJS, Formspree eller et eget API før publisering.')};return <><PageHero eyebrow="Kontakt & besøk" title="Vi sees på Linna." description="Finn veien, still et spørsmål eller planlegg et hyggelig besøk." image={photos.hero}/><Section><Container><ContactGrid><div><Eyebrow>Velkommen inn</Eyebrow><Heading>Finn veien til oss.</Heading><Paragraph>Planlegger du en tur til Notodden? Her samler vi det du trenger for å finne fram, komme i kontakt og gjøre deg klar for et besøk.</Paragraph><Paragraph>Ta gjerne kontakt om meny, aktiviteter, tilgjengelighet eller andre praktiske spørsmål. Vi anbefaler å kontrollere opplysningene direkte med puben før du legger turen innom.</Paragraph><Notice>DEMO: Gateadresse, telefon, e-post og åpningstider er ikke verifisert og vises derfor ikke som oppdiktede fakta. Kontaktformularen nedenfor er en demonstrasjon uten tilkoblet sendetjeneste.</Notice></div><div><article><MapPin color={palette.wine}/><h3>Besøksadresse</h3><p>Notodden, Norge. Fullstendig adresse legges inn når den er bekreftet.</p><a href="https://www.google.com/maps/search/?api=1&query=Linna+Pub+Notodden" target="_blank" rel="noreferrer">Søk på Google Maps ↗</a></article><article><Clock color={palette.wine}/><h3>Åpningstider</h3><p>Åpningstidene må bekreftes av Linna Pub før de publiseres.</p></article><article><Mail color={palette.wine}/><h3>Kontakt</h3><p>Bekreftet telefonnummer og e-postadresse legges til her.</p></article></div></ContactGrid></Container></Section><Section $alternate><Container><ContactGrid><div><Eyebrow>Send en forespørsel</Eyebrow><Heading>Vi vil gjerne høre fra deg.</Heading><Paragraph>Har du spørsmål om et besøk, et mulig arrangement eller noe helt annet? Fyll ut skjemaet for å se hvordan kontaktsiden vil fungere når en e-posttjeneste er koblet til.</Paragraph><Paragraph>Vi lagrer eller sender ikke informasjonen i denne demoen. Skjemaet må kobles til en faktisk tjeneste og personvernteksten oppdateres før lansering.</Paragraph><ImageBand><img src={photos.interior} alt="Illustrativt interiør" loading="lazy"/><img src={photos.bar} alt="Illustrativ bar" loading="lazy"/><img src={photos.social} alt="Illustrativ sosial møteplass" loading="lazy"/></ImageBand></div><Form onSubmit={submit}><Eyebrow>Kontaktskjema · Demo</Eyebrow><label htmlFor="contact-name">Navn<input id="contact-name" name="name" value={form.name} onChange={update} required minLength={2} placeholder="Ditt navn"/></label><label htmlFor="contact-email">E-post<input id="contact-email" name="email" type="email" value={form.email} onChange={update} required placeholder="din@epost.no"/></label><label htmlFor="contact-topic">Hva gjelder det?<select id="contact-topic" name="topic" value={form.topic} onChange={update}><option>Generell henvendelse</option><option>Mat og drikke</option><option>Aktiviteter</option><option>Besøk og tilgjengelighet</option><option>Annet</option></select></label><label htmlFor="contact-message">Melding<textarea id="contact-message" name="message" value={form.message} onChange={update} required minLength={10} placeholder="Skriv meldingen din her ..."/></label><small>Demo: Ingen personopplysninger sendes eller lagres. Koble til en e-posttjeneste før bruk.</small><button type="submit"><Send size={16}/> Test skjema</button>{status&&<p role="status"><CheckCircle size={17} style={{verticalAlign:'middle',marginRight:8}}/>{status}</p>}</Form></ContactGrid></Container></Section><Section><Container><Eyebrow>Før du kommer</Eyebrow><Heading>Gjør besøket enkelt.</Heading><Cards>{[['Finn fram','Sjekk kartet og bekreft riktig adresse før du drar.',MapPin],['Planlegg tidspunktet','Kontroller åpningstider og eventuelt aktivitetsprogram direkte med puben.',CalendarDays],['Spør oss','Bruk bekreftede kontaktkanaler når de er lagt inn på nettsiden.',Mail]].map(([t,d,Icon])=><article key={t}><Icon color={palette.wine}/><h3>{t}</h3><p>{d}</p></article>)}</Cards></Container></Section></>}
+export function Contact() {
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    topic: "Generell henvendelse",
+    message: "",
+  });
+  const [status, setStatus] = useState("");
+  const update = (e) =>
+    setForm((v) => ({ ...v, [e.target.name]: e.target.value }));
+  const submit = (e) => {
+    e.preventDefault();
+    setStatus(
+      "Demo: Meldingen er ikke sendt. Koble skjemaet til EmailJS, Formspree eller et eget API før publisering.",
+    );
+  };
+  return (
+    <>
+      <PageHero
+        eyebrow="Kontakt & besøk"
+        title="Vi sees på Linna."
+        description="Finn veien, still et spørsmål eller planlegg et hyggelig besøk."
+        image={photos.hero}
+      />
+      <Section>
+        <Container>
+          <ContactGrid>
+            <div>
+              <Eyebrow>Velkommen inn</Eyebrow>
+              <Heading>Finn veien til oss.</Heading>
+              <Paragraph>
+                Planlegger du en tur til Notodden? Her samler vi det du trenger
+                for å finne fram, komme i kontakt og gjøre deg klar for et
+                besøk.
+              </Paragraph>
+              <Paragraph>
+                Ta gjerne kontakt om meny, aktiviteter, tilgjengelighet eller
+                andre praktiske spørsmål. Vi anbefaler å kontrollere
+                opplysningene direkte med puben før du legger turen innom.
+              </Paragraph>
+            </div>
+            <div>
+              <article>
+                <MapPin color={palette.wine} />
+                <h3>Besøksadresse</h3>
+                <p>
+                  Notodden, Norge. Fullstendig adresse legges inn når den er
+                  bekreftet.
+                </p>
+                <a
+                  href="https://www.google.com/maps/search/?api=1&query=Linna+Pub+Notodden"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Søk på Google Maps ↗
+                </a>
+              </article>
+              <article>
+                <Clock color={palette.wine} />
+                <h3>Åpningstider</h3>
+                <p>
+                  Åpningstidene må bekreftes av Linna Pub før de publiseres.
+                </p>
+              </article>
+              <article>
+                <Mail color={palette.wine} />
+                <h3>Kontakt</h3>
+                <p>Bekreftet telefonnummer og e-postadresse legges til her.</p>
+              </article>
+            </div>
+          </ContactGrid>
+        </Container>
+      </Section>
+      <Section $alternate>
+        <Container>
+          <ContactGrid>
+            <div>
+              <Eyebrow>Send en forespørsel</Eyebrow>
+              <Heading>Vi vil gjerne høre fra deg.</Heading>
+              <Paragraph>
+                Har du spørsmål om et besøk, et mulig arrangement eller noe helt
+                annet? Fyll ut skjemaet for å se hvordan kontaktsiden vil
+                fungere når en e-posttjeneste er koblet til.
+              </Paragraph>
+              <Paragraph>
+                Vi lagrer eller sender ikke informasjonen i denne demoen.
+                Skjemaet må kobles til en faktisk tjeneste og personvernteksten
+                oppdateres før lansering.
+              </Paragraph>
+              <ImageBand>
+                <img
+                  src={photos.interior}
+                  alt="Illustrativt interiør"
+                  loading="lazy"
+                />
+                <img src={photos.bar} alt="Illustrativ bar" loading="lazy" />
+                <img
+                  src={photos.social}
+                  alt="Illustrativ sosial møteplass"
+                  loading="lazy"
+                />
+              </ImageBand>
+            </div>
+            <Form onSubmit={submit}>
+              <Eyebrow>Kontaktskjema · Demo</Eyebrow>
+              <label htmlFor="contact-name">
+                Navn
+                <input
+                  id="contact-name"
+                  name="name"
+                  value={form.name}
+                  onChange={update}
+                  required
+                  minLength={2}
+                  placeholder="Ditt navn"
+                />
+              </label>
+              <label htmlFor="contact-email">
+                E-post
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  value={form.email}
+                  onChange={update}
+                  required
+                  placeholder="din@epost.no"
+                />
+              </label>
+              <label htmlFor="contact-topic">
+                Hva gjelder det?
+                <select
+                  id="contact-topic"
+                  name="topic"
+                  value={form.topic}
+                  onChange={update}
+                >
+                  <option>Generell henvendelse</option>
+                  <option>Mat og drikke</option>
+                  <option>Aktiviteter</option>
+                  <option>Besøk og tilgjengelighet</option>
+                  <option>Annet</option>
+                </select>
+              </label>
+              <label htmlFor="contact-message">
+                Melding
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  value={form.message}
+                  onChange={update}
+                  required
+                  minLength={10}
+                  placeholder="Skriv meldingen din her ..."
+                />
+              </label>
 
+              <button type="submit">
+                <Send size={16} /> Test skjema
+              </button>
+              {status && (
+                <p role="status">
+                  <CheckCircle
+                    size={17}
+                    style={{ verticalAlign: "middle", marginRight: 8 }}
+                  />
+                  {status}
+                </p>
+              )}
+            </Form>
+          </ContactGrid>
+        </Container>
+      </Section>
+      <Section>
+        <Container>
+          <Eyebrow>Før du kommer</Eyebrow>
+          <Heading>Gjør besøket enkelt.</Heading>
+          <Cards>
+            {[
+              [
+                "Finn fram",
+                "Sjekk kartet og bekreft riktig adresse før du drar.",
+                MapPin,
+              ],
+              [
+                "Planlegg tidspunktet",
+                "Kontroller åpningstider og eventuelt aktivitetsprogram direkte med puben.",
+                CalendarDays,
+              ],
+              [
+                "Spør oss",
+                "Bruk bekreftede kontaktkanaler når de er lagt inn på nettsiden.",
+                Mail,
+              ],
+            ].map(([t, d, Icon]) => (
+              <article key={t}>
+                <Icon color={palette.wine} />
+                <h3>{t}</h3>
+                <p>{d}</p>
+              </article>
+            ))}
+          </Cards>
+        </Container>
+      </Section>
+    </>
+  );
+}
