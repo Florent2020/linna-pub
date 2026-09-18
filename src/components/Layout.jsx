@@ -5,24 +5,30 @@ import { Menu, X, ArrowUpRight, Instagram, Facebook } from "lucide-react";
 import { navigation, palette } from "../data/site";
 const Shell = styled.div`
   min-height: 100vh;
+  width: 100%;
   background: ${palette.cream};
   color: ${palette.dark};
   font-family: "DM Sans", sans-serif;
+
   * {
     box-sizing: border-box;
   }
+
   a {
     text-decoration: none;
     color: inherit;
   }
+
   button {
     font: inherit;
     cursor: pointer;
   }
+
   img {
     display: block;
     max-width: 100%;
   }
+
   ::selection {
     background: ${palette.gold};
     color: ${palette.dark};
